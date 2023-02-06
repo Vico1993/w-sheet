@@ -30,12 +30,8 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Test
-              run: go test -race -v ./...
-              if: runner.os != 'Windows'
-
             - name: Test (without race detector)
-              run: go test -v ./...
+              run: make test
               if: runner.os == 'Windows'
 
     lint:
