@@ -6,6 +6,9 @@ import (
 )
 
 func main() {
+	// Init configuration file
+	initConfig()
+
 	tr := newTransaction(asset{
 		quantiy:  1,
 		code:     "BTC",
