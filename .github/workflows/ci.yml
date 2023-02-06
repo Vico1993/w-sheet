@@ -73,8 +73,8 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Ensure PoNew compiles
-              run: go build -a -o "./ponew" "./domain/"
+            - name: Ensure project compiles
+              run: make build
 
     coverage:
         runs-on: ubuntu-latest
