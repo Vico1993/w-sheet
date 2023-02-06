@@ -9,12 +9,12 @@ import (
 const CURRENCY_CODE = "CAD"
 
 type fiat struct {
-	value    int64
+	value    float64
 	currency string
 }
 
 type asset struct {
-	quantiy  int64
+	quantiy  float64
 	code     string
 	isCrypto bool
 }
