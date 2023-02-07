@@ -10,7 +10,7 @@ func main() {
 	initConfig()
 
 	// Load seeder if there is any
-	loadSeeder()
+	importSeeder()
 
 	tr := newTransaction(asset{
 		quantiy:  1,
