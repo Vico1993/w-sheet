@@ -9,6 +9,9 @@ func main() {
 	// Init configuration file
 	initConfig()
 
+	// Load seeder if there is any
+	loadSeeder()
+
 	tr := newTransaction(asset{
 		quantiy:  1,
 		code:     "BTC",
