@@ -7,8 +7,6 @@ import (
 	"log"
 	"strconv"
 	"time"
-
-	"github.com/spf13/viper"
 )
 
 type seederJsonReference struct {
@@ -24,8 +22,6 @@ type seederJson struct {
 	Date         string              `json:"date"`
 	Reference    seederJsonReference `json:"reference"`
 }
-
-var v = viper.GetViper()
 
 func loadSeeder() []transaction {
 	file, err := ioutil.ReadFile("./seeder.json")

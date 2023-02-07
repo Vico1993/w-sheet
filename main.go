@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"log"
+
+	"github.com/spf13/viper"
 )
+
+var v = viper.GetViper()
 
 func main() {
 	// Init configuration file
@@ -12,15 +16,14 @@ func main() {
 	// Load seeder if there is any
 	importSeeder()
 
-	tr := newTransaction(asset{
-		quantiy:  1,
-		code:     "BTC",
-		isCrypto: true,
-	}, asset{
-		quantiy:  100,
-		code:     "CAD",
-		isCrypto: false,
-	}, time.Now().AddDate(1993, 10, 03))
+	var transactions []transaction
 
-	fmt.Println("Hello:", tr.id)
+	err := v.UnmarshalKey("transactions", &transactions)
+	if err != nil {
+		log.Fatalln("Error loading operations: ", err.Error())
+	}
+
+	for _, transaction := range transactions {
+		fmt.Println("Transaction", transaction.date, " - ", transaction.id)
+	}
 }
