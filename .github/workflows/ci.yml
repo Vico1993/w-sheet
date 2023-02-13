@@ -40,6 +40,13 @@ jobs:
                   go test -race -covermode atomic -coverprofile coverage.out ./...
                   go tool cover -func coverage.out
 
+            - name: Coveralls
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  path-to-lcov: ./coverage.out
+                  flag-name: run-${{ matrix.test_number }}
+
             - name: Quality Gate - Test coverage shall be above threshold
               run: |
                   echo "Quality Gate: checking test coverage is above threshold ..."
@@ -53,13 +60,6 @@ jobs:
                       echo "Failed"
                       exit 1
                   fi
-
-            - name: Coveralls
-              uses: coverallsapp/github-action@master
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  path-to-lcov: ./coverage.out
-                  flag-name: run-${{ matrix.test_number }}
 
     lint:
         name: Lint
