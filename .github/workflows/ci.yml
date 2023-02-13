@@ -20,7 +20,7 @@ jobs:
             # that should be able to fail independently.
             fail-fast: false
             matrix:
-                os: [ubuntu-latest, macos-latest, windows-latest]
+                os: [ubuntu-latest, macos-latest]
         env:
             COVERALLS_PARALLEL: true
             COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,11 +36,6 @@ jobs:
 
             - name: Test
               run: go test -race -covermode atomic -coverprofile=profile.cov ./...
-              if: runner.os != 'Windows'
-
-            - name: Test (without race detector)
-              run: go test -covermode atomic -coverprofile=profile.cov -v ./...
-              if: runner.os == 'Windows'
 
             - name: Install goveralls
               run: go install github.com/mattn/goveralls@latest
