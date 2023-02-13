@@ -1,5 +1,7 @@
 # W-sheet
 
+[![Coverage Status](https://coveralls.io/repos/github/Vico1993/w-sheet/badge.svg?branch=main)](https://coveralls.io/github/Vico1993/w-sheet?branch=main)
+
 Small project to experience stuff
 
 ## How to use it?
