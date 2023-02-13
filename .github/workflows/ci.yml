@@ -39,7 +39,7 @@ jobs:
               if: runner.os != 'Windows'
 
             - name: Test (without race detector)
-              run: go test -covermode atomic -coverprofile=profile.cov ./...
+              run: go test -covermode atomic -coverprofile=profile.cov -v ./...
               if: runner.os == 'Windows'
 
             - name: Install goveralls
