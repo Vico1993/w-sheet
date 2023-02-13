@@ -22,7 +22,6 @@ jobs:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
         env:
-            GOFLAGS: -mod=readonly
             COVERALLS_PARALLEL: true
             COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
