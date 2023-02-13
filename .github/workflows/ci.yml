@@ -8,6 +8,9 @@ on:
         branches:
             - main
 
+env:
+    TESTCOVERAGE_THRESHOLD: 90
+
 jobs:
     test:
         name: Test
@@ -30,9 +33,24 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Test (without race detector)
-              run: make test
-              if: runner.os == 'Windows'
+            - name: Test
+              run: |
+                  go test -race -covermode atomic -coverprofile=profile.cov ./...
+                  go tool cover -func coverage.out
+
+            - name: Quality Gate - Test coverage shall be above threshold
+              run: |
+                  echo "Quality Gate: checking test coverage is above threshold ..."
+                  echo "Threshold             : $TESTCOVERAGE_THRESHOLD %"
+                  totalCoverage=`go tool cover -func=coverage.out | grep total | grep -Eo '[0-9]+\.[0-9]+'`
+                  echo "Current test coverage : $totalCoverage %"
+                  if (( $(echo "$totalCoverage $TESTCOVERAGE_THRESHOLD" | awk '{print ($1 > $2)}') )); then
+                      echo "OK"
+                  else
+                      echo "Current test coverage is below threshold. Please add more unit tests or adjust threshold to a lower value."
+                      echo "Failed"
+                      exit 1
+                  fi
 
     lint:
         name: Lint
@@ -54,6 +72,10 @@ jobs:
               with:
                   version: latest
 
+            - name: Vet
+              run: |
+                  go vet ./...
+
     build:
         name: build
         runs-on: ubuntu-latest
@@ -71,25 +93,3 @@ jobs:
 
             - name: Ensure project compiles
               run: make build
-
-    coverage:
-        runs-on: ubuntu-latest
-        env:
-            GO111MODULE: "on"
-
-        steps:
-            - name: Install Go
-              uses: actions/setup-go@v2
-              with:
-                  go-version: ^1
-
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Coverage
-              env:
-                  COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  go test -race -covermode atomic -coverprofile=profile.cov ./...
-                  GO111MODULE=off go get github.com/mattn/goveralls
-                  $(go env GOPATH)/bin/goveralls -coverprofile=profile.cov -service=github
