@@ -35,7 +35,7 @@ jobs:
 
             - name: Test
               run: |
-                  go test -race -covermode atomic -coverprofile=profile.cov ./...
+                  go test -race -covermode atomic -coverprofile coverage.out ./...
                   go tool cover -func coverage.out
 
             - name: Quality Gate - Test coverage shall be above threshold
