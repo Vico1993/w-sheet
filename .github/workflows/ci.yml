@@ -36,6 +36,11 @@ jobs:
 
             - name: Test
               run: go test -race -covermode atomic -coverprofile=profile.cov ./...
+              if: runner.os != 'Windows'
+
+            - name: Test (without race detector)
+              run: go test -covermode atomic -coverprofile=profile.cov ./...
+              if: runner.os == 'Windows'
 
             - name: Install goveralls
               run: go install github.com/mattn/goveralls@latest
