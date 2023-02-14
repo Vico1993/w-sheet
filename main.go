@@ -14,11 +14,14 @@ func main() {
 	initConfig()
 
 	// Load seeder if there is any
-	loadSeeder()
+	_, err := loadSeeder()
+	if err != nil {
+		fmt.Println("Couldn't load the transactions")
+		return
+	}
 
 	var transactions []transaction
-
-	err := v.UnmarshalKey("transactions", &transactions)
+	err = v.UnmarshalKey("transactions", &transactions)
 	if err != nil {
 		log.Fatalln("Error loading operations: ", err.Error())
 	}

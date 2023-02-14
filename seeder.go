@@ -2,9 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io/ioutil"
-	"log"
 	"strconv"
 	"time"
 )
@@ -23,18 +22,16 @@ type seederJson struct {
 	Reference    seederJsonReference `json:"reference"`
 }
 
-func loadSeeder() []transaction {
+func loadSeeder() ([]transaction, error) {
 	file, err := ioutil.ReadFile("./seeder.json")
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		return nil, err
 	}
 
 	var data []seederJson
 	err = json.Unmarshal(file, &data)
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		return nil, err
 	}
 
 	// Parse data and transform into transactions
@@ -55,7 +52,7 @@ func loadSeeder() []transaction {
 	}
 
 	if len(transactions) == 0 {
-		fmt.Println("Couldn't load transactions")
+		return nil, errors.New("No transactions found")
 	}
 
 	// For now just erase what we have.@
@@ -63,8 +60,8 @@ func loadSeeder() []transaction {
 
 	err = v.WriteConfig()
 	if err != nil {
-		log.Fatalln("Error saving transactions: ", err.Error())
+		return nil, err
 	}
 
-	return transactions
+	return transactions, nil
 }
