@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"time"
 )
@@ -22,8 +23,10 @@ type seederJson struct {
 	Reference    seederJsonReference `json:"reference"`
 }
 
+var seederFileName = "./seeder.json"
+
 func loadSeeder() ([]transaction, error) {
-	file, err := ioutil.ReadFile("./seeder.json")
+	file, err := ioutil.ReadFile(seederFileName)
 	if err != nil {
 		return nil, err
 	}
@@ -59,6 +62,12 @@ func loadSeeder() ([]transaction, error) {
 	v.Set("transactions", transactions)
 
 	err = v.WriteConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	// clean seeder file
+	err = os.Remove(seederFileName)
 	if err != nil {
 		return nil, err
 	}

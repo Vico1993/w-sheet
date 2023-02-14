@@ -11,10 +11,14 @@ import (
 )
 
 func before() {
+	seederFileName = "./test-seeder.json"
+
 	viper.SetConfigFile("./test.json")
 
 	defer func() {
+
 		os.Remove("./test.json")
+		os.Remove("./test-seeder.json")
 	}()
 }
 
@@ -31,7 +35,7 @@ func TestLoadSeeder(t *testing.T) {
 			"date": "2022-01-01"
 		}
 	]`)
-	err := ioutil.WriteFile("./seeder.json", seederJSON, 0644)
+	err := ioutil.WriteFile(seederFileName, seederJSON, 0644)
 	if err != nil {
 		t.Errorf("Failed to create test seeder file: %s", err)
 		return
@@ -65,12 +69,6 @@ func TestLoadSeeder(t *testing.T) {
 		t.Errorf("Expected %v, but got %v", expected, transactions[0])
 		return
 	}
-
-	// Clean up
-	err = os.Remove("./seeder.json")
-	if err != nil {
-		t.Errorf("Failed to remove test seeder file: %s", err)
-	}
 }
 
 func TestSeederFileNotFound(t *testing.T) {
@@ -78,7 +76,7 @@ func TestSeederFileNotFound(t *testing.T) {
 	transactions, err := loadSeeder()
 
 	assert.Nil(t, transactions, "Expected nil instead of transactions")
-	assert.EqualError(t, err, "open ./seeder.json: no such file or directory", "An file not found error should be triggered")
+	assert.EqualError(t, err, "open "+seederFileName+": no such file or directory", "An file not found error should be triggered")
 }
 
 func TestSeederIncorrect(t *testing.T) {
@@ -94,7 +92,7 @@ func TestSeederIncorrect(t *testing.T) {
 			"date": "2022-01-01"
 		}
 	]`)
-	err := ioutil.WriteFile("./seeder.json", seederJSON, 0644)
+	err := ioutil.WriteFile(seederFileName, seederJSON, 0644)
 	if err != nil {
 		t.Errorf("Failed to create test seeder file: %s", err)
 		return
@@ -112,7 +110,7 @@ func TestEmptySeeder(t *testing.T) {
 
 	// Create a test JSON file for seeder
 	seederJSON := []byte(`[]`)
-	err := ioutil.WriteFile("./seeder.json", seederJSON, 0644)
+	err := ioutil.WriteFile(seederFileName, seederJSON, 0644)
 	if err != nil {
 		t.Errorf("Failed to create test seeder file: %s", err)
 		return
