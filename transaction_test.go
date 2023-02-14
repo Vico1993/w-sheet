@@ -16,7 +16,7 @@ func TestSimpleTransaction(t *testing.T) {
 		Quantiy:  100,
 		Code:     "CAD",
 		IsCrypto: false,
-	}, time.Now().AddDate(1993, 10, 03))
+	}, time.Date(1993, 10, 3, 0, 0, 0, 0, time.UTC))
 
 	assert.Equal(t, float64(100), transac.Reference.Value)
 }
@@ -30,7 +30,7 @@ func TestDefaultTransactionRef(t *testing.T) {
 		Quantiy:  100,
 		Code:     "ETH",
 		IsCrypto: true,
-	}, time.Now().AddDate(1993, 10, 03))
+	}, time.Date(1993, 10, 3, 0, 0, 0, 0, time.UTC))
 
 	assert.Equal(t, float64(0), transac.Reference.Value)
 }
@@ -44,7 +44,7 @@ func TestRefWithFromCurrency(t *testing.T) {
 		Quantiy:  1,
 		Code:     "BTC",
 		IsCrypto: true,
-	}, time.Now().AddDate(1993, 10, 03))
+	}, time.Date(1993, 10, 3, 0, 0, 0, 0, time.UTC))
 
 	assert.Equal(t, float64(100), transac.Reference.Value)
 }
