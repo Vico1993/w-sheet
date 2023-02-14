@@ -11,12 +11,16 @@ var v = viper.GetViper()
 
 func main() {
 	// Init configuration file
-	initConfig()
+	err := initConfig()
+	if err != nil {
+		fmt.Println("Couldn't setup config: ", err.Error())
+		return
+	}
 
 	// Load seeder if there is any
-	_, err := loadSeeder()
+	_, err = loadSeeder()
 	if err != nil {
-		fmt.Println("Couldn't load the transactions", err.Error())
+		fmt.Println("Couldn't load the transactions:", err.Error())
 		return
 	}
 
