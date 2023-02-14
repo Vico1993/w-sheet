@@ -42,13 +42,13 @@ func loadSeeder() ([]transaction, error) {
 		date, _ := time.Parse("2006-01-02", operation.Date)
 
 		transactions = append(transactions, *newTransaction(asset{
-			quantiy:  quantityFrom,
-			code:     operation.FromCode,
-			isCrypto: operation.FromCode != "CAD",
+			Quantiy:  quantityFrom,
+			Code:     operation.FromCode,
+			IsCrypto: operation.FromCode != "CAD",
 		}, asset{
-			quantiy:  quantity,
-			code:     operation.Code,
-			isCrypto: operation.Code != "CAD"}, date))
+			Quantiy:  quantity,
+			Code:     operation.Code,
+			IsCrypto: operation.Code != "CAD"}, date))
 	}
 
 	if len(transactions) == 0 {

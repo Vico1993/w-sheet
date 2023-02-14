@@ -49,19 +49,19 @@ func TestLoadSeeder(t *testing.T) {
 
 	// Check the contents of the transaction
 	expected := transaction{
-		from: asset{
-			quantiy:  800,
-			code:     "USD",
-			isCrypto: true,
+		From: asset{
+			Quantiy:  800,
+			Code:     "USD",
+			IsCrypto: true,
 		},
-		to: asset{
-			quantiy:  1000,
-			code:     "CAD",
-			isCrypto: false,
+		To: asset{
+			Quantiy:  1000,
+			Code:     "CAD",
+			IsCrypto: false,
 		},
-		date: time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC),
+		Date: time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC),
 	}
-	if transactions[0].from != expected.from || transactions[0].to != expected.to || transactions[0].date != expected.date {
+	if transactions[0].From != expected.From || transactions[0].To != expected.To || transactions[0].Date != expected.Date {
 		t.Errorf("Expected %v, but got %v", expected, transactions[0])
 		return
 	}

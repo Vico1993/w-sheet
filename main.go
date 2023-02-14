@@ -31,6 +31,6 @@ func main() {
 	}
 
 	for _, transaction := range transactions {
-		fmt.Println("Transaction", transaction.date, " - ", transaction.id)
+		fmt.Println("Transaction", transaction.Date, " - ", transaction.Id)
 	}
 }

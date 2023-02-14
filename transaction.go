@@ -9,53 +9,53 @@ import (
 const CURRENCY_CODE = "CAD"
 
 type fiat struct {
-	value    float64
-	currency string
+	Value    float64
+	Currency string
 }
 
 type asset struct {
-	quantiy  float64
-	code     string
-	isCrypto bool
+	Quantiy  float64
+	Code     string
+	IsCrypto bool
 }
 
 type transaction struct {
-	id        string
-	from      asset
-	to        asset
-	reference fiat
-	date      time.Time
+	Id        string
+	From      asset
+	To        asset
+	Reference fiat
+	Date      time.Time
 }
 
 // Create a new Transaction from exchange information
 func newTransaction(from asset, to asset, date time.Time) *transaction {
 	// Default reference
 	ref := fiat{
-		currency: CURRENCY_CODE,
-		value:    0,
+		Currency: CURRENCY_CODE,
+		Value:    0,
 	}
 
 	// Purchase
-	if !from.isCrypto && from.code == CURRENCY_CODE {
+	if !from.IsCrypto && from.Code == CURRENCY_CODE {
 		ref = fiat{
-			currency: CURRENCY_CODE,
-			value:    from.quantiy,
+			Currency: CURRENCY_CODE,
+			Value:    from.Quantiy,
 		}
 	}
 
 	// Withdrawal
-	if !to.isCrypto && to.code == CURRENCY_CODE {
+	if !to.IsCrypto && to.Code == CURRENCY_CODE {
 		ref = fiat{
-			currency: CURRENCY_CODE,
-			value:    to.quantiy,
+			Currency: CURRENCY_CODE,
+			Value:    to.Quantiy,
 		}
 	}
 
 	return &transaction{
-		id:        uuid.New().String(),
-		from:      from,
-		to:        to,
-		date:      date,
-		reference: ref,
+		Id:        uuid.New().String(),
+		From:      from,
+		To:        to,
+		Date:      date,
+		Reference: ref,
 	}
 }

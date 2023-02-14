@@ -9,42 +9,42 @@ import (
 
 func TestSimpleTransaction(t *testing.T) {
 	transac := newTransaction(asset{
-		quantiy:  1,
-		code:     "BTC",
-		isCrypto: true,
+		Quantiy:  1,
+		Code:     "BTC",
+		IsCrypto: true,
 	}, asset{
-		quantiy:  100,
-		code:     "CAD",
-		isCrypto: false,
+		Quantiy:  100,
+		Code:     "CAD",
+		IsCrypto: false,
 	}, time.Now().AddDate(1993, 10, 03))
 
-	assert.Equal(t, float64(100), transac.reference.value)
+	assert.Equal(t, float64(100), transac.Reference.Value)
 }
 
 func TestDefaultTransactionRef(t *testing.T) {
 	transac := newTransaction(asset{
-		quantiy:  1,
-		code:     "BTC",
-		isCrypto: true,
+		Quantiy:  1,
+		Code:     "BTC",
+		IsCrypto: true,
 	}, asset{
-		quantiy:  100,
-		code:     "ETH",
-		isCrypto: true,
+		Quantiy:  100,
+		Code:     "ETH",
+		IsCrypto: true,
 	}, time.Now().AddDate(1993, 10, 03))
 
-	assert.Equal(t, float64(0), transac.reference.value)
+	assert.Equal(t, float64(0), transac.Reference.Value)
 }
 
 func TestRefWithFromCurrency(t *testing.T) {
 	transac := newTransaction(asset{
-		quantiy:  100,
-		code:     "CAD",
-		isCrypto: false,
+		Quantiy:  100,
+		Code:     "CAD",
+		IsCrypto: false,
 	}, asset{
-		quantiy:  1,
-		code:     "BTC",
-		isCrypto: true,
+		Quantiy:  1,
+		Code:     "BTC",
+		IsCrypto: true,
 	}, time.Now().AddDate(1993, 10, 03))
 
-	assert.Equal(t, float64(100), transac.reference.value)
+	assert.Equal(t, float64(100), transac.Reference.Value)
 }
