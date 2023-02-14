@@ -16,7 +16,7 @@ func main() {
 	// Load seeder if there is any
 	_, err := loadSeeder()
 	if err != nil {
-		fmt.Println("Couldn't load the transactions")
+		fmt.Println("Couldn't load the transactions", err.Error())
 		return
 	}
 

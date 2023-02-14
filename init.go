@@ -8,11 +8,12 @@ import (
 // For now the data will come from a json in the root of the project.
 // Could be move later in small SQLite DB?
 // Or even a JSON but setup by the CLI and not the user.
-
 // Temp for now and see how it goes.
 
+var userHomeDir = os.UserHomeDir
+
 func initConfig() {
-	homedir, err := os.UserHomeDir()
+	homedir, err := userHomeDir()
 	if err != nil {
 		homedir = "./"
 	}

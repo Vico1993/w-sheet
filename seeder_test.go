@@ -12,6 +12,10 @@ import (
 
 func before() {
 	viper.SetConfigFile("./test.json")
+
+	defer func() {
+		os.Remove("./test.json")
+	}()
 }
 
 func TestLoadSeeder(t *testing.T) {
