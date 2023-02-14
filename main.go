@@ -14,7 +14,7 @@ func main() {
 	initConfig()
 
 	// Load seeder if there is any
-	importSeeder()
+	loadSeeder()
 
 	var transactions []transaction
 

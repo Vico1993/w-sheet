@@ -34,3 +34,17 @@ func TestDefaultTransactionRef(t *testing.T) {
 
 	assert.Equal(t, float64(0), transac.reference.value)
 }
+
+func TestRefWithFromCurrency(t *testing.T) {
+	transac := newTransaction(asset{
+		quantiy:  100,
+		code:     "CAD",
+		isCrypto: false,
+	}, asset{
+		quantiy:  1,
+		code:     "BTC",
+		isCrypto: true,
+	}, time.Now().AddDate(1993, 10, 03))
+
+	assert.Equal(t, float64(100), transac.reference.value)
+}

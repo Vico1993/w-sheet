@@ -54,21 +54,17 @@ func loadSeeder() []transaction {
 			isCrypto: operation.Code != "CAD"}, date))
 	}
 
-	return transactions
-}
-
-func importSeeder() {
-	transactions := loadSeeder()
-	if transactions == nil {
+	if len(transactions) == 0 {
 		fmt.Println("Couldn't load transactions")
-		return
 	}
 
-	// For now just erase what we have.
+	// For now just erase what we have.@
 	v.Set("transactions", transactions)
 
-	err := v.WriteConfig()
+	err = v.WriteConfig()
 	if err != nil {
 		log.Fatalln("Error saving transactions: ", err.Error())
 	}
+
+	return transactions
 }

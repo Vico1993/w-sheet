@@ -5,9 +5,13 @@ import (
 	"os"
 	"testing"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 func TestLoadSeeder(t *testing.T) {
+	viper.SetConfigFile("./test.json")
+
 	// Create a test JSON file for seeder
 	seederJSON := []byte(`[
 		{

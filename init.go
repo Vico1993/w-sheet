@@ -3,8 +3,6 @@ package main
 import (
 	"log"
 	"os"
-
-	"github.com/spf13/viper"
 )
 
 // For now the data will come from a json in the root of the project.
@@ -45,9 +43,9 @@ func initConfig() {
 		}
 	}
 
-	viper.SetConfigFile(configFilePath)
+	v.SetConfigFile(configFilePath)
 
-	err = viper.ReadInConfig()
+	err = v.ReadInConfig()
 	if err != nil {
 		log.Fatal("Fatal error config file: %w \n", err)
 	}
