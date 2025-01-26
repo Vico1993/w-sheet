@@ -3,7 +3,7 @@ module github.com/Vico1993/w-sheet
 go 1.18
 
 require (
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.6.0
 	github.com/spf13/viper v1.17.0
 	github.com/stretchr/testify v1.8.4
 )
